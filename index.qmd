@@ -129,12 +129,30 @@ $$
 
 Derive the expression for 
 $$
-f'(z_0) = \frac{df}{dz}\Bigg|_{z=z_0}
+f'(z_0) = \frac{df}{dz}\Bigg|_{z=z_0} = 4z_0^3 - 12z_0 - 3
 $$
 and evaluate $f'(z_0)$ when $z_0 = -3.5$.
 
+$$
+f'(z_0) = \frac{df}{dz}\Bigg|_{z_0=-3.5} = 4(-3.5)^3 - 12(-3.5) - 3 = -132.5
+$$
+
 Define $f(z)$ as a function in R, and using the `torch` library compute $f'(-3.5)$. 
 
+```{r}
+
+######## FIX ME
+
+
+f <- function(z){
+  (z^4) - 6*(z)^2 - 3*z + 4 
+}
+z_tensor <- torch_tensor(-3.5, requires_grad = TRUE)
+
+output_tensor <- f(z_tensor)
+
+#_______$grad()
+```
 
 ---
 
@@ -176,8 +194,6 @@ For this question we will use the **Titanic** dataset from the Stanford data arc
 Read the data from the following URL as a tibble in R. Preprocess the data such that the variables are of the right data type, e.g., binary variables are encoded as factors, and convert all column names to lower case for consistency. Let's also rename the response variable `Survival` to `y` for convenience.
 
 ```{R}
-library(tidyverse)
-
 url <- "https://web.stanford.edu/class/archive/cs/cs109/cs109.1166/stuff/titanic.csv"
 
 df <- read.csv(url)
@@ -195,7 +211,6 @@ colnames(df) <- tolower(colnames(df))
 # changing the y (survived) and sex to factors
 df$y <- as.factor(df$y)
 df$sex <- as.factor(ifelse(df$sex == 'male', 1, 0))
-
 ```
 
 ---
@@ -204,8 +219,14 @@ df$sex <- as.factor(ifelse(df$sex == 'male', 1, 0))
 
 Visualize the correlation matrix of all numeric columns in `df` using `corrplot()`
 
-```R
-df %>% ... # Insert your code here
+```{R}
+# selecting only numeric variables
+df %>% 
+  select(-c(y, name, sex)) 
+
+# creating corrplot
+corrplot(cor(dfCorr), method = 'color', tl.cex = 0.9, tl.col = 'black', 
+         order = 'hclust')
 ```
 
 
@@ -224,8 +245,9 @@ Fit a logistic regression model to predict the probability of surviving the tita
 * `# parents`
 
 
-```R
-full_model <- ... # Insert your code here
+```{R}
+df2 <- df %>% select(-name)
+full_model <-  glm(y ~., data = df2, family = binomial())
 summary(full_model)
 ```
 
