@@ -257,9 +257,8 @@ Fit a logistic regression model to predict the probability of surviving the tita
 ```{R}
 full_model <-  glm(y ~ pclass + sex + age + `siblings spouses aboard` + 
                      `parents children aboard` + fare, data = df, 
-                      family = binomial(link = 'logit'))
+                      family = binomial())
 summary(full_model)
-str(df)
 ```
 
 ---
@@ -337,7 +336,7 @@ Display an overview of the key performance metrics of `full_model`
 
 ```{R}
 # getting predictions on the survival of Titanic passengers 
-predictions <- predict(full_model, newdata = df)
+predictions <- predict(full_model)
 
 # getting expected value for survival (survived = 1, died = 0)
 expected <- df$y
