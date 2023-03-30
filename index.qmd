@@ -319,7 +319,6 @@ overview <- function(predicted, expected){
         )
     )
 }
-
 ```
 
 You can check if your function is doing what it's supposed to do by evaluating
