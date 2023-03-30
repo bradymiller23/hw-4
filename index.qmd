@@ -27,7 +27,7 @@ Please read the instructions carefully before submitting your assignment.
 
 We will be using the following libraries:
 
-```{R, output = 'false'}
+```{R}
 packages <- c(
   "dplyr", 
   "readr", 
@@ -164,6 +164,11 @@ For the same function $f$, initialize $z[1] = -3.5$, and perform $n=100$ iterati
 
 Plot the curve $f$ and add taking $\eta = 0.02$, add the points $\{z_0, z_1, z_2, \dots z_{100}\}$ obtained using gradient descent to the plot. What do you observe?
 
+```{r}
+
+
+```
+
 ---
 
 ###### 1.5 (5 points)
@@ -171,6 +176,10 @@ Plot the curve $f$ and add taking $\eta = 0.02$, add the points $\{z_0, z_1, z_2
 
 Redo the same analysis as **Question 1.4**, but this time using $\eta = 0.03$. What do you observe? What can you conclude from this analysis
 
+```{r}
+
+
+```
 
 
 
