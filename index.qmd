@@ -117,7 +117,20 @@ $$
 $$
 
 Define $h(\u, \v)$ as a function in R, initialize the two vectors $\u$ and $\v$ as `torch_tensor`s. Compute the gradient of $h(\u, \v)$ with respect to $\u$. Does the answer match what you expected?
+```{r}
+h <- function(u,v){
+  (torch_dot(u,v))^3
+}
 
+u <- torch_tensor(c(-1,1,-1,1,-1,1,-1,1,-1,1), requires_grad = TRUE)
+v <- torch_tensor(c(1,-1,1,-1,1,-1,1,-1,1,-1), requires_grad = TRUE)
+
+output <- h(u,v)
+
+output$backward()
+
+u.grad
+```
 ---
 
 ###### 1.3 (5 points)
@@ -149,9 +162,8 @@ f <- function(z){
 }
 z_tensor <- torch_tensor(-3.5, requires_grad = TRUE)
 
-output_tensor <- f(z_tensor)
+output <- grad(f(z_tensor), z)
 
-#_______$grad()
 ```
 
 ---
