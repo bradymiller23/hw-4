@@ -373,8 +373,7 @@ overview(step_predictions, df$y)
 Using the `caret` package, setup a **$5$-fold cross-validation** training method using the `caret::trainConrol()` function
 
 ```{R}
-controls <- trainControl(method = 'cv', number = 5) 
-controls
+controls <- trainControl(method = 'cv', number = 5)
 ```
 
 Now, using `control`, perform $5$-fold cross validation using `caret::train()` to select the optimal $\lambda$ parameter for LASSO with logistic regression. 
@@ -383,7 +382,7 @@ Take the search grid for $\lambda$ to be in $\{ 2^{-20}, 2^{-19.5}, 2^{-19}, \do
 
 ```{R}
 lasso_fit <- train(
-  x = df[,c(2,4,5,6,7)],
+  x = select(df, -y),
   y = df$y,
   method = 'glmnet',
   trControl = controls, 
@@ -391,7 +390,8 @@ lasso_fit <- train(
     alpha = 1,
     lambda = 2^seq(-20, 0, by = 0.5)
     ),
-  family = 'gaussian'
+  standardize = TRUE,
+  family = 'binomial'
 )
 ```
 Using the information stored in `lasso_fit$results`, plot the results for  cross-validation accuracy vs. $log_2(\lambda)$. Choose the optimal $\lambda^*$, and report your results for this value of $\lambda^*$.
