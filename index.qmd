@@ -196,6 +196,17 @@ matches the value I got when I calculated $f'(-3.5)$ by hand
 ---
 
 ###### 1.4 (5 points)
+```r
+f = \(z) z^4 - 6 * z^2 - 3 * z +4
+z = torch_zeros(100);
+z[1] = torch_tensor(-3.5)
+
+for (i in i:100){
+  x <- f(z[i])$backward
+  z[i+1] z[i] - 0.02 * z[i]$grad
+}
+
+```
 
 For the same function $f$, initialize $z[1] = -3.5$, and perform $n=100$ 
 iterations of **gradient descent**, i.e., 
